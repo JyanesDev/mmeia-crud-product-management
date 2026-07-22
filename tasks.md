@@ -8,13 +8,16 @@ Derived from `spec.md`, ordered to match the composition already declared in MME
 - [ ] `.github/workflows/ci.yml` — lint + test job, green on an empty test suite.
 - [ ] Tag `v0.0.1`.
 
-## Milestone M1 — Schema (applies `01_Disenar_Base_Datos`)
+## Milestone M1 — Schema (applies `01_Disenar_Base_Datos`) — DONE 2026-07-22
 
-- [ ] `Categoria` table: `id`, `nombre` (unique), `descripcion`.
-- [ ] `Producto` table: `id`, `nombre`, `descripcion`, `precio`, `categoria_id` (FK), `estado` (enum).
-- [ ] `Stock` table: `id`, `producto_id` (FK, unique — 1:1), `cantidad` (`CHECK (cantidad >= 0)`).
-- [ ] Migration scripts committed, applied against a local PostgreSQL, verified with a manual insert of one row per table.
-- [ ] Tag `v0.1.0`.
+- [x] `Categoria` table: `id`, `nombre` (unique), `descripcion`.
+- [x] `Producto` table: `id`, `nombre`, `descripcion`, `precio`, `categoria_id` (FK, `ON DELETE RESTRICT`), `estado` (`CHECK` enum, default `borrador`).
+- [x] `Stock` table: `id`, `producto_id` (FK, unique — 1:1, `ON DELETE CASCADE`), `cantidad` (`CHECK (cantidad >= 0)`, default 0).
+- [x] `disenio.md` (Pasos 1-4 del Playbook) and `db/schema.sql` (Paso 5) committed.
+- [x] Schema applied against a real, disposable PostgreSQL 16 container and verified with 5 constraint tests, all failing exactly as required (`db/VERIFICATION.md`, Paso 6).
+- [x] Tag `v0.1.0`.
+
+Playbook Checklist final (7/7): satisfied — see `db/VERIFICATION.md` and `disenio.md`.
 
 ## Milestone M2 — API (applies `02_Crear_API`)
 
