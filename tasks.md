@@ -19,15 +19,17 @@ Derived from `spec.md`, ordered to match the composition already declared in MME
 
 Playbook Checklist final (7/7): satisfied — see `db/VERIFICATION.md` and `disenio.md`.
 
-## Milestone M2 — API (applies `02_Crear_API`)
+## Milestone M2 — API (applies `02_Crear_API`) — DONE 2026-07-22
 
-- [ ] `POST /categorias`, `GET /categorias`, `DELETE /categorias/{id}` (FR3, with the referenced-products check).
-- [ ] `POST /productos` (FR1), `GET /productos/{id}`, `GET /productos` with pagination + filters (FR2).
-- [ ] `POST /productos/{id}/transicion` (FR5, state machine validation).
-- [ ] `PATCH /productos/{id}/stock` (FR4, delta-based adjustment).
-- [ ] `GET /productos/{id}` includes computed `agotado` (FR6).
-- [ ] Pytest suite covering every acceptance criterion in `spec.md` — see `requirements.md` NFR3 for the pass/fail bar (must match `REFERENCE_PROJECT.md §10` in MMEIA).
-- [ ] Tag `v0.2.0`.
+- [x] `POST /categorias`, `GET /categorias`, `DELETE /categorias/{id}` (FR3, with the referenced-products check).
+- [x] `POST /productos` (FR1), `PATCH /productos/{id}`, `GET /productos/{id}`, `GET /productos` with pagination + filters (FR2).
+- [x] `POST /productos/{id}/transicion` (FR5, state machine validation).
+- [x] `PATCH /productos/{id}/stock` (FR4, delta-based adjustment).
+- [x] `GET /productos/{id}` includes computed `agotado` (FR6).
+- [x] Pytest suite (28 tests) covering every acceptance criterion in `spec.md`, run against a real disposable PostgreSQL 16 container. Plus a real server smoke test (`uvicorn` + `curl`). See `api/VERIFICATION.md`.
+- [x] Tag `v0.2.0`.
+
+**Deliberate deviation from `02_Crear_API/PLAYBOOK.md`, documented in `api/contrato.md`:** Paso 5 (JWT) omitted — `spec.md` already excludes authentication, and `PLAN_DE_DESARROLLO.md §1` reserves security for the second Reference Project ("API — con seguridad"). Pasos 1-4 and 6 applied in full; the Paso 6 verification table adapted by removing the "sin token" column (see `api/VERIFICATION.md`).
 
 ## Milestone M3 — Deploy (applies `03_Preparar_Despliegue`)
 
