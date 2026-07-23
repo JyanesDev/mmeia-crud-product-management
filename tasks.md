@@ -31,12 +31,17 @@ Playbook Checklist final (7/7): satisfied — see `db/VERIFICATION.md` and `dise
 
 **Deliberate deviation from `02_Crear_API/PLAYBOOK.md`, documented in `api/contrato.md`:** Paso 5 (JWT) omitted — `spec.md` already excludes authentication, and `PLAN_DE_DESARROLLO.md §1` reserves security for the second Reference Project ("API — con seguridad"). Pasos 1-4 and 6 applied in full; the Paso 6 verification table adapted by removing the "sin token" column (see `api/VERIFICATION.md`).
 
-## Milestone M3 — Deploy (applies `03_Preparar_Despliegue`)
+## Milestone M3 — Deploy (applies `03_Preparar_Despliegue`) — DONE 2026-07-22
 
-- [ ] `docker/Dockerfile` for the API service.
-- [ ] `docker/docker-compose.yml` — API + PostgreSQL, environment variables for the connection string, no hardcoded secrets.
-- [ ] `docker compose up` from a clean checkout reaches a working API with no manual steps (NFR2).
-- [ ] Tag `v0.3.0`.
+- [x] `despliegue.md` (Paso 1) — full variable inventory, secrets marked.
+- [x] `docker/Dockerfile` for the API service (Paso 2) — versioned image built twice for real: `:0.3.0` (this milestone) and `:0.2.0` (rebuilt from the real `v0.2.0` tag via `git worktree`, to give the M4/Paso 6 "previous version still exists" check real substance instead of a token pass).
+- [x] `.github/workflows/ci.yml` (Paso 3) — 3 chained jobs (`build` → `test` → `deploy`), each depending on the previous via `needs:`. YAML syntax validated locally; not yet observed running on a real GitHub Actions runner (no `gh` CLI in this environment - see `docs/decisions.md` for the honest limitation).
+- [x] `.env.example` + `docker/docker-compose.yml` (Paso 4) — API + PostgreSQL, environment variables for the connection string, no hardcoded secrets. Target environment is local Docker Compose, per `spec.md`'s declared scope (not a cloud platform).
+- [x] Real deployment executed (Paso 5): `docker compose up -d --build` from a clean `.env`, both containers reached a healthy/running state with no manual steps beyond providing `.env` (NFR2).
+- [x] Full 5-point verification (Paso 6), all real, including a genuine 5-minute wait: availability (200), health (200, same endpoint), version reported matches expected (`0.3.0`, added a `version` field to `/health` for this), previous version image confirmed present (`0.2.0`), stable after 5 real minutes (containers still healthy, same response).
+- [x] Tag `v0.3.0`.
+
+Playbook Checklist final (10/10): satisfied — see `docs/deployment.md` for the full evidence log.
 
 ## Milestone M4 — Freeze-ready
 

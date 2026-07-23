@@ -28,15 +28,24 @@ Boring, mainstream choices on purpose — the point of this project is the decis
 .
 ├── spec.md              # what each feature must do, before any code (SDD — see below)
 ├── requirements.md       # functional/non-functional requirements this project satisfies
-├── tasks.md              # implementation plan, derived from spec.md
+├── tasks.md              # implementation plan, derived from spec.md, milestones checked off as completed
+├── disenio.md            # entity/attribute/constraint design (01_Disenar_Base_Datos, Pasos 1-4)
+├── despliegue.md         # configuration/secrets inventory (03_Preparar_Despliegue, Paso 1)
 ├── docs/
 │   ├── architecture.md  # high-level architecture diagram and rationale
 │   ├── decisions.md     # this project's own ADRs (full version — MMEIA's copy is a summary)
-│   └── deployment.md    # how this project is deployed
-├── src/                  # application code (empty until Fase 6.3+)
-├── tests/                # test suite (empty until Fase 6.3+)
-├── docker/               # Dockerfile + docker-compose.yml (empty until Fase 6.3+)
-└── .github/workflows/    # CI pipeline (empty until Fase 6.3+)
+│   └── deployment.md    # how this project is deployed, with real verification evidence
+├── db/
+│   ├── schema.sql        # executable DDL (01_Disenar_Base_Datos, Paso 5)
+│   └── VERIFICATION.md   # real constraint-test evidence against a live PostgreSQL
+├── api/
+│   ├── contrato.md       # endpoint contracts (02_Crear_API, Pasos 1-2)
+│   └── VERIFICATION.md   # real end-to-end test evidence
+├── src/                  # application code (FastAPI + SQLAlchemy + Pydantic)
+├── tests/                # 28 pytest tests
+├── docker/               # Dockerfile + docker-compose.yml
+├── .env.example           # variable template (03_Preparar_Despliegue, Paso 4)
+└── .github/workflows/    # CI pipeline (build → test → deploy)
 ```
 
 ## Spec-Driven Development note
