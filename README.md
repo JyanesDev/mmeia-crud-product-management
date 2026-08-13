@@ -1,61 +1,132 @@
-# mmeia-crud-product-management
+# 🗃️ Product Management CRUD
 
-Reference implementation for **`01_CRUD`**, the pilot Reference Project of [MMEIA](https://github.com/JyanesDev/MMEIA-METHODOLOGY-V2) (`05_Reference_Projects`).
+![Category](https://img.shields.io/badge/MMEIA-01_CRUD-6f42c1)
+![Python](https://img.shields.io/badge/Python-FastAPI-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791)
+![Status](https://img.shields.io/badge/status-M1--M3%20complete-success)
 
-This repository is the external, real, runnable counterpart to `05_Reference_Projects/01_CRUD/REFERENCE_PROJECT.md` in the MMEIA repository. MMEIA's own documentation never embeds the full code of a Reference Project (`ADR-002`/`ADR-007`) — it explains the decisions; this repository *is* the decisions applied.
+A real, runnable product-management CRUD built as the **first MMEIA Reference Project**. It applies database design, API design, testing, deployment and Spec-Driven Development to a deliberately small domain.
 
-**If you found this repo through MMEIA:** don't copy this project — compare it against your own. See the "Guía de comparación" section of `REFERENCE_PROJECT.md` in the MMEIA repository for the questions this project is meant to provoke, not answer for you.
+## 📍 Portfolio Position
 
-## What this is
+| Field | Value |
+|---|---|
+| **Collection** | MMEIA Reference Projects |
+| **Reference** | `01_CRUD` |
+| **Category** | CRUD / backend API |
+| **Domain** | Products, categories and stock |
+| **Engineering focus** | End-to-end delivery from specification to verified deployment |
 
-A small product-management CRUD: products, categories, stock, and an explicit product lifecycle (`borrador` → `activo` → `descatalogado`). Deliberately small — see `spec.md` for exactly what it does and does not cover.
+## 🎯 What This Project Demonstrates
 
-## Stack
+- Product and category management
+- Stock management
+- Explicit product lifecycle: `borrador → activo → descatalogado`
+- Relational constraints enforced in PostgreSQL
+- REST API contracts designed before implementation
+- Automated tests against a real disposable PostgreSQL instance
+- Docker-based deployment
+- CI pipeline structure
+- Technical decisions documented as project ADRs
 
-- **API:** FastAPI
-- **Database:** PostgreSQL
-- **ORM:** SQLAlchemy
-- **Validation:** Pydantic
-- **Tests:** Pytest
-- **Deploy:** Docker Compose
-- **CI:** GitHub Actions
+## 🛠 Tech Stack
 
-Boring, mainstream choices on purpose — the point of this project is the decisions in `docs/decisions.md`, not the tech stack.
+| Area | Technology |
+|---|---|
+| API | FastAPI |
+| Database | PostgreSQL 16 |
+| ORM | SQLAlchemy |
+| Validation | Pydantic |
+| Tests | Pytest |
+| Deployment | Docker + Docker Compose |
+| CI | GitHub Actions |
 
-## Repository layout
+The stack is intentionally mainstream. The purpose of the project is to demonstrate **engineering decisions and verification**, not unusual framework choices.
+
+## 🧭 Engineering Approach
+
+This repository follows **Spec-Driven Development (SDD)**:
+
+```text
+spec.md
+   ↓
+requirements.md
+   ↓
+tasks.md
+   ↓
+design + contracts
+   ↓
+implementation
+   ↓
+verification evidence
+```
+
+The specification, requirements and implementation plan exist before the code they govern.
+
+## ✅ Current Status
+
+| Milestone | State | Evidence |
+|---|---|---|
+| M1 — Database | ✅ Complete | Real PostgreSQL constraint verification |
+| M2 — API | ✅ Complete | 28 Pytest tests + real-server smoke test |
+| M3 — Deployment | ✅ Complete | Docker Compose deployment and 5-point verification |
+| M4 — Formal freeze | ⏳ Pending | Final review, CI confirmation and `v1.0.0` |
+
+Current tagged delivery line: `v0.1.0` → `v0.2.0` → `v0.3.0`.
+
+## 📂 Repository Structure
 
 ```text
 .
-├── spec.md              # what each feature must do, before any code (SDD — see below)
-├── requirements.md       # functional/non-functional requirements this project satisfies
-├── tasks.md              # implementation plan, derived from spec.md, milestones checked off as completed
-├── disenio.md            # entity/attribute/constraint design (01_Disenar_Base_Datos, Pasos 1-4)
-├── despliegue.md         # configuration/secrets inventory (03_Preparar_Despliegue, Paso 1)
-├── docs/
-│   ├── architecture.md  # high-level architecture diagram and rationale
-│   ├── decisions.md     # this project's own ADRs (full version — MMEIA's copy is a summary)
-│   └── deployment.md    # how this project is deployed, with real verification evidence
-├── db/
-│   ├── schema.sql        # executable DDL (01_Disenar_Base_Datos, Paso 5)
-│   └── VERIFICATION.md   # real constraint-test evidence against a live PostgreSQL
+├── spec.md
+├── requirements.md
+├── tasks.md
+├── disenio.md
+├── despliegue.md
 ├── api/
-│   ├── contrato.md       # endpoint contracts (02_Crear_API, Pasos 1-2)
-│   └── VERIFICATION.md   # real end-to-end test evidence
-├── src/                  # application code (FastAPI + SQLAlchemy + Pydantic)
-├── tests/                # 28 pytest tests
-├── docker/               # Dockerfile + docker-compose.yml
-├── .env.example           # variable template (03_Preparar_Despliegue, Paso 4)
-└── .github/workflows/    # CI pipeline (build → test → deploy)
+│   ├── contrato.md
+│   └── VERIFICATION.md
+├── db/
+│   ├── schema.sql
+│   └── VERIFICATION.md
+├── docs/
+│   ├── architecture.md
+│   ├── decisions.md
+│   └── deployment.md
+├── src/
+├── tests/
+├── docker/
+├── .env.example
+└── .github/workflows/
 ```
 
-## Spec-Driven Development note
+## 📚 Key Documentation
 
-This project is built following **SDD** (see [`SDD.md`](https://github.com/JyanesDev/MMEIA-METHODOLOGY-V2/blob/main/03_Knowledge_Base/11_Inteligencia_Artificial/SDD.md) in MMEIA): `spec.md`/`requirements.md`/`tasks.md` exist and are reviewed *before* any code is written or generated. Whether these files are later migrated into a real [OpenSpec](https://github.com/JyanesDev/MMEIA-METHODOLOGY-V2/blob/main/03_Knowledge_Base/11_Inteligencia_Artificial/OpenSpec.md) scaffold (via the actual `openspec` CLI, not hand-copied) is an open decision for a later milestone — see `docs/decisions.md`.
+| Document | Purpose |
+|---|---|
+| [`spec.md`](spec.md) | Exact product behaviour and scope |
+| [`requirements.md`](requirements.md) | Functional and non-functional requirements |
+| [`tasks.md`](tasks.md) | Milestones and implementation progress |
+| [`disenio.md`](disenio.md) | Data-model design |
+| [`api/contrato.md`](api/contrato.md) | API contracts |
+| [`docs/architecture.md`](docs/architecture.md) | Architecture and rationale |
+| [`docs/decisions.md`](docs/decisions.md) | Project engineering decisions |
+| [`docs/deployment.md`](docs/deployment.md) | Deployment verification evidence |
 
-## Milestones
+## 💡 How to Use This Repository
 
-See `tasks.md` for the full breakdown. Tagged releases: `v0.1.0` (schema), `v0.2.0` (API), `v0.3.0` (deploy), `v1.0.0` (stable — this is the tag MMEIA's `commit_referencia` will point to).
+This is a **reference implementation**, not a project to copy blindly. Its value is in comparing its requirements, decisions, contracts, implementation and verification evidence against another solution to the same problem.
 
-## License
+## 🧭 MMEIA Reference Projects
 
-TBD — decide before making the repository public.
+| # | Category | Repository |
+|---|---|---|
+| 01 | 🗃️ CRUD | **mmeia-crud-product-management** |
+| 02 | 🔐 Secure API | [mmeia-secure-task-api](https://github.com/JyanesDev/mmeia-secure-task-api) |
+| 03 | 🏢 SaaS | [mmeia-multitenant-workspaces](https://github.com/JyanesDev/mmeia-multitenant-workspaces) |
+| 04 | 🔌 MCP | [mmeia-notes-mcp-server](https://github.com/JyanesDev/mmeia-notes-mcp-server) |
+| 05 | 🤖 RAG | [mmeia-support-rag](https://github.com/JyanesDev/mmeia-support-rag) |
+
+## 👨‍💻 Author
+
+**Jonay Yanes** — [GitHub profile](https://github.com/JyanesDev)
